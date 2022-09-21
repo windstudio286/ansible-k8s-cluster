@@ -1,0 +1,9 @@
+[control_plane]
+control1 ansible_host=94.237.75.248 ansible_user=root ansible_ssh_pass=@Bem19041989
+
+[workers]
+worker1 ansible_host=94.237.78.88 ansible_user=root ansible_ssh_pass=@Bem19041989
+worker2 ansible_host=94.237.3.241 ansible_user=root ansible_ssh_pass=@Bem19041989
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3

@@ -2,6 +2,15 @@
 - hosts: control_plane
   become: yes
   tasks:
+    - name: Check that the cluster_initialized exists
+      stat:
+        path: cluster_initialized.txt
+      register: stat_result
+      #Phải remove file cluster_initialized.txt nếu tồn tại thì đoạn code dưới mới chạy
+    - name: Remove the file, if it exist already
+      shell: "rm cluster_initialized.txt"
+      when: stat_result.stat.exists
+
     - name: initialize the cluster
       become: yes
       become_user: root
@@ -29,6 +38,15 @@
         remote_src: yes
         owner: ubuntu
       when: k8s_conf.stat.exists
+
+    - name: Check that the cluster_initialized exists
+      stat:
+        path: pod_network_setup.txt
+      register: stat_result_1
+      #Phải remove file cluster_initialized.txt nếu tồn tại thì đoạn code dưới mới chạy
+    - name: Remove the file, if it exist already
+      shell: "rm pod_network_setup.txt"
+      when: stat_result_1.stat.exists
     - name: install Pod network
       become: yes
       become_user: ubuntu
